@@ -1,0 +1,80 @@
+<div class="container mt-2">
+  <div class="input-group">
+    <form class="form-inline mt-4 d-flex justify-content-center">
+      <input
+        type="search"
+        #query
+        (keyup.enter)="onEnter(query.value)"
+        class="form-control rounded"
+        placeholder="Search"
+      />
+      <button type="button" class="btn btn-outline-primary">search</button>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card" style="width: 500px" *ngFor="let pelicula of peliculas">
+        <div class="row no-gutters">
+          <div class="col-sm-5">
+            <img
+              class="card-img"
+              src="https://image.tmdb.org/t/p/w500{{ pelicula.backdrop_path }}"
+              alt="No Image"
+            />
+          </div>
+          <div class="col-sm-7">
+            <div class="card-body">
+              <h5 class="card-title">{{ pelicula.title }}</h5>
+              <p class="card-text">Rated : {{ pelicula.vote_average }}</p>
+              <p class="card-text">Release On:{{ pelicula.release_date }}</p>
+              <button
+                (click)="movieDetails(pelicula.id)"
+                class="btn btn-primary"
+              >
+                Get Movie Details
+              </button>
+            </div>
+          </div>
+          <div class="overview">
+            <p>{{ pelicula.overview }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="!detail">
+      <p>No Movie Selected</p>
+    </div>
+    <div class="col-md-6" *ngIf="detail">
+      <form  (ngSubmit)="onSubmit()">
+        <div class="card">
+          <img
+            src="https://image.tmdb.org/t/p/w500{{ detail.backdrop_path }}"
+            alt="No Image"
+          />
+          <h4>{{ detail.title }}</h4>
+          <p [(ngModel)]="reldate">Release On:{{ detail.release_date }}</p>
+          <p [(ngModel)]="overview">{{ detail.overview }}</p>
+          <div class="rows">
+            <p [(ngModel)] = "vote">Rated : {{ detail.vote_average }}</p>
+          </div>
+          <div class="card">
+            <h4>Give Review</h4>
+            <input type="text" ngmodel name="title" value="{{detail.title}}">
+            <input
+              #ranger
+              [(ngModel)]="userreview"
+              type="range"
+              name="userreview"
+              (input)="(ranger.value)"
+              min="1"
+              max="10"
+            />
+            <span >Rate : {{ ranger.value }}</span>
+            <br />
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

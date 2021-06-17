@@ -1,0 +1,14 @@
+
+
+.card {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.overview p{
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
